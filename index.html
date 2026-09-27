@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impulso Digital | Marketing Digital</title>
+    <style>
+      :root {
+        --bg: #0a0d12;
+        --bg-2: #111820;
+        --panel: #121b27;
+        --panel-soft: #0f1722;
+        --surface: #171f2a;
+        --line: rgba(255,255,255,0.08);
+        --line-strong: rgba(255,255,255,0.16);
+        --text: #f5f7fb;
+        --muted: #a8b4c4;
+        --primary: #3a7bd5;
+        --primary-dark: #234e9f;
+        --primary-soft: rgba(58, 123, 213, 0.14);
+        --shadow: 0 24px 56px rgba(0, 0, 0, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .section {
+        padding: 110px 0;
+      }
+
+      .section-heading {
+        max-width: 760px;
+        margin: 0 auto 40px;
+        text-align: center;
+      }
+
+      .eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--primary);
+        font-weight: 700;
+        margin: 0 0 14px;
+      }
+
+      h1, h2, h3, p {
+        margin-top: 0;
+      }
+
+      h1, h2, h3 {
+        letter-spacing: -0.05em;
+        line-height: 1.1;
+      }
+
+      h2 {
+        font-size: clamp(2.2rem, 3vw, 3.3rem);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        padding: 0 24px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .btn:hover,
+      .btn:focus-visible {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), #6aa5ff);
+        color: #071320;
+        box-shadow: 0 18px 38px rgba(58, 123, 213, 0.25);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        border-color: var(--line-strong);
+        color: var(--text);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Header */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(10, 13, 18, 0.82);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-inner {
+        min-height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.06em;
+      }
+
+      .main-nav {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+
+      .main-nav a {
+        position: relative;
+        transition: color 0.25s ease;
+      }
+
+      .main-nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 2px;
+        background: var(--primary);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+
+      .main-nav a:hover,
+      .main-nav a:focus-visible {
+        color: var(--text);
+      }
+
+      .main-nav a:hover::after,
+      .main-nav a:focus-visible::after {
+        transform: scaleX(1);
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 46px;
+        height: 46px;
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 72px 0 58px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.08fr 0.92fr;
+        align-items: center;
+        gap: 44px;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(2.7rem, 5vw, 5.3rem);
+        max-width: 620px;
+        margin-bottom: 18px;
+      }
+
+      .hero-copy p {
+        color: var(--muted);
+        font-size: 1.12rem;
+        max-width: 620px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .hero-image-wrap {
+        position: relative;
+      }
+
+      .hero-image-wrap::before {
+        content: "";
+        position: absolute;
+        inset: 18px -18px -18px 18px;
+        background: linear-gradient(135deg, rgba(58, 123, 213, 0.16), rgba(255,255,255,0.03));
+        filter: blur(18px);
+        border-radius: 28px;
+      }
+
+      .hero-image-box {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-image-box img {
+        width: 100%;
+        height: 640px;
+        object-fit: cover;
+        filter: grayscale(0.15) brightness(0.85);
+      }
+
+      /* Serviços */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .service-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 26px 22px;
+        overflow: hidden;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .service-card:hover,
+      .service-card:focus-within {
+        transform: translateY(-6px);
+        border-color: rgba(58, 123, 213, 0.45);
+        box-shadow: 0 18px 36px rgba(16, 26, 39, 0.22);
+      }
+
+      .service-media {
+        width: 72px;
+        height: 72px;
+        display: grid;
+        place-items: center;
+        border-radius: 18px;
+        background: var(--primary-soft);
+        color: var(--text);
+        font-weight: 700;
+        margin-bottom: 20px;
+        border: 1px solid rgba(58, 123, 213, 0.28);
+      }
+
+      .service-card h3 {
+        margin-bottom: 12px;
+        font-size: 1.45rem;
+      }
+
+      .service-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      /* Portfolio */
+      .portfolio {
+        background: rgba(255,255,255,0.01);
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .portfolio-item {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 18px 36px rgba(7, 12, 20, 0.18);
+        transition: transform 0.25s ease, border-color 0.25s ease;
+      }
+
+      .portfolio-item:hover {
+        transform: translateY(-4px);
+        border-color: rgba(58, 123, 213, 0.5);
+      }
+
+      .portfolio-item img {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        transition: transform 0.35s ease;
+      }
+
+      .portfolio-item:hover img {
+        transform: scale(1.06);
+      }
+
+      .portfolio-content {
+        padding: 22px 18px 24px;
+      }
+
+      .portfolio-tag {
+        color: var(--primary);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .portfolio-content h3 {
+        font-size: 1.45rem;
+        margin-bottom: 18px;
+      }
+
+      .portfolio-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+      }
+
+      .portfolio-link span {
+        transition: transform 0.25s ease;
+      }
+
+      .portfolio-link:hover span,
+      .portfolio-link:focus-visible span {
+        transform: translateX(4px);
+      }
+
+      /* Sobre */
+      .about-wrap {
+        display: grid;
+        grid-template-columns: 1.04fr 0.96fr;
+        gap: 42px;
+        align-items: center;
+      }
+
+      .about-copy p {
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-width: 620px;
+      }
+
+      .about-image-box {
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .about-image-box img {
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+      }
+
+      /* Processo */
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .process-step {
+        position: relative;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 22px 18px;
+      }
+
+      .process-step::before {
+        content: "";
+        position: absolute;
+        top: 34px;
+        left: calc(100% + 11px);
+        width: 22px;
+        height: 2px;
+        background: rgba(255,255,255,0.18);
+      }
+
+      .process-step:last-child::before {
+        display: none;
+      }
+
+      .process-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), #7caafc);
+        color: #071320;
+        font-weight: 800;
+        margin-bottom: 18px;
+      }
+
+      .process-step h3 {
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+      }
+
+      .process-step p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      /* Formulário */
+      .contact-wrap {
+        display: grid;
+        grid-template-columns: 0.92fr 1.08fr;
+        gap: 36px;
+        align-items: start;
+      }
+
+      .contact-copy {
+        color: var(--muted);
+      }
+
+      .contact-copy p {
+        font-size: 1.04rem;
+      }
+
+      .socials {
+        display: grid;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .socials a {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        width: fit-content;
+        min-width: 180px;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+      }
+
+      .social-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(58, 123, 213, 0.14);
+        color: var(--primary);
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .contact-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 26px;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .field.full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-weight: 700;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-height: 52px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        color: var(--text);
+        padding: 0 14px;
+      }
+
+      textarea {
+        min-height: 150px;
+        padding-top: 12px;
+        resize: vertical;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: rgba(58, 123, 213, 0.8);
+        box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.12);
+      }
+
+      .form-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+      }
+
+      .status-message {
+        margin: 0;
+        font-weight: 700;
+        color: #a9f5d1;
+        display: none;
+      }
+
+      .status-message.show {
+        display: block;
+      }
+
+      .error-field {
+        border-color: rgba(255, 109, 122, 0.9) !important;
+        box-shadow: 0 0 0 3px rgba(255, 109, 122, 0.08);
+      }
+
+      /* Footer */
+      .site-footer {
+        border-top: 1px solid var(--line);
+        padding: 40px 0 26px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr 0.8fr;
+        gap: 24px;
+      }
+
+      .footer-brand h3 {
+        margin-bottom: 10px;
+        font-size: 1.7rem;
+      }
+
+      .footer-brand p,
+      .footer-links a,
+      .footer-bottom {
+        color: var(--muted);
+      }
+
+      .footer-links {
+        display: grid;
+        gap: 8px;
+      }
+
+      .footer-links a:hover,
+      .footer-links a:focus-visible {
+        color: var(--text);
+      }
+
+      .footer-bottom {
+        margin-top: 26px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        text-align: center;
+      }
+
+      /* botão voltar */
+      .back-to-top {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        width: 52px;
+        height: 52px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), #7faef6);
+        color: #071320;
+        font-size: 1.5rem;
+        box-shadow: 0 16px 32px rgba(58, 123, 213, 0.3);
+        cursor: pointer;
+        z-index: 90;
+      }
+
+      .back-to-top.visible {
+        display: inline-flex;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .about-wrap,
+        .contact-wrap,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .services-grid,
+        .portfolio-grid,
+        .process-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 760px) {
+        .menu-toggle {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .main-nav {
+          position: absolute;
+          left: 16px;
+          right: 16px;
+          top: calc(100% + 10px);
+          display: none;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 20px 18px;
+          background: rgba(10, 13, 18, 0.96);
+          border: 1px solid var(--line);
+          border-radius: 18px;
+          box-shadow: var(--shadow);
+        }
+
+        .main-nav.open {
+          display: flex;
+        }
+
+        .header-inner {
+          position: relative;
+        }
+
+        .services-grid,
+        .portfolio-grid,
+        .process-grid,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-image-box img {
+          height: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .btn,
+        .form-actions .btn {
+          width: 100%;
+        }
+
+        .hero-actions,
+        .form-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .hero-copy h1 {
+          font-size: 2.5rem;
+        }
+
+        .section {
+          padding: 86px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
+
+    <header class="site-header" id="inicio">
+      <div class="container header-inner">
+        <a href="#inicio" class="logo">IMPULSO DIGITAL</a>
+
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+          ☰
+        </button>
+
+        <nav class="main-nav" aria-label="Menu principal">
+          <a href="#inicio">Início</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#portfolio">Portfólio</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#contato">Contato</a>
+          <a href="#contato" class="btn btn-primary">Fale conosco</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Agência de marketing digital</p>
+            <h1>Marketing digital para empresas que querem crescer.</h1>
+            <p>
+              Estratégia, conteúdo, design e presença digital para transformar sua marca e aproximar sua empresa dos seus clientes.
+            </p>
+            <div class="hero-actions">
+              <a href="#servicos" class="btn btn-primary">Conheça nossos serviços</a>
+              <a href="#contato" class="btn btn-secondary">Quero falar com a equipe</a>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap reveal">
+            <div class="hero-image-box">
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80"
+                alt="Equipe profissional trabalhado em marketing digital, análise de dados e estratégia empresarial"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="servicos">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Serviços</p>
+            <h2>Como podemos ajudar sua empresa?</h2>
+          </div>
+
+          <div class="services-grid">
+            <article class="service-card reveal">
+              <div class="service-media">01</div>
+              <h3>Marketing Digital</h3>
+              <p>Estratégias para aumentar a presença digital da empresa.</p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-media">02</div>
+              <h3>Social Media</h3>
+              <p>Planejamento e criação de conteúdo para redes sociais.</p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-media">03</div>
+              <h3>Design Gráfico</h3>
+              <p>Artes profissionais para redes sociais, anúncios e campanhas.</p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-media">04</div>
+              <h3>Identidade Visual</h3>
+              <p>Construção de uma identidade visual profissional para sua marca.</p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-media">05</div>
+              <h3>Criação de Sites</h3>
+              <p>Sites modernos, responsivos e profissionais.</p>
+            </article>
+
+            <article class="service-card reveal">
+              <div class="service-media">06</div>
+              <h3>Publicidade Digital</h3>
+              <p>Estratégias para divulgar produtos, serviços e empresas no ambiente digital.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section portfolio" id="portfolio">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Portfólio</p>
+            <h2>Nosso portfólio</h2>
+            <p>Alguns exemplos de projetos e soluções digitais.</p>
+          </div>
+
+          <div class="portfolio-grid">
+            <article class="portfolio-item reveal">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Projeto de marketing digital com branding e planejamento estratégico" />
+              <div class="portfolio-content">
+                <div class="portfolio-tag">Marketing Digital</div>
+                <h3>Campanha de crescimento</h3>
+                <a href="#" class="portfolio-link">Ver projeto <span>→</span></a>
+              </div>
+            </article>
+
+            <article class="portfolio-item reveal">
+              <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=900&q=80" alt="Conteúdo para redes sociais e gestão de presença digital" />
+              <div class="portfolio-content">
+                <div class="portfolio-tag">Social Media</div>
+                <h3>Conteúdo para rede</h3>
+                <a href="#" class="portfolio-link">Ver projeto <span>→</span></a>
+              </div>
+            </article>
+
+            <article class="portfolio-item reveal">
+              <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80" alt="Design gráfico e criação visual para campanha publicitária" />
+              <div class="portfolio-content">
+                <div class="portfolio-tag">Design</div>
+                <h3>Arte visual premium</h3>
+                <a href="#" class="portfolio-link">Ver projeto <span>→</span></a>
+              </div>
+            </article>
+
+            <article class="portfolio-item reveal">
+              <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80" alt="Identidade visual e branding para marca de negócio" />
+              <div class="portfolio-content">
+                <div class="portfolio-tag">Branding</div>
+                <h3>Identidade visual</h3>
+                <a href="#" class="portfolio-link">Ver projeto <span>→</span></a>
+              </div>
+            </article>
+
+            <article class="portfolio-item reveal">
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80" alt="Website moderno para empresa digital" />
+              <div class="portfolio-content">
+                <div class="portfolio-tag">Website</div>
+                <h3>Site institucional</h3>
+                <a href="#" class="portfolio-link">Ver projeto <span>→</span></a>
+              </div>
+            </article>
+
+            <article class="portfolio-item reveal">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="Publicidade digital e campanhas de prospecção comercial" />
+              <div class="portfolio-content">
+                <div class="portfolio-tag">Publicidade</div>
+                <h3>Campanha digital</h3>
+                <a href="#" class="portfolio-link">Ver projeto <span>→</span></a>
+              </div>
+            </article>
+
+            <article class="portfolio-item reveal">
+              <img src="https://images.unsplash.com/photo-1553484771-047c24f0ee8f?auto=format&fit=crop&w=900&q=80" alt="Identidade visual e comunicação para empresa de tecnologia" />
+              <div class="portfolio-content">
+                <div class="portfolio-tag">Identidade Visual</div>
+                <h3>Marca empresarial</h3>
+                <a href="#" class="portfolio-link">Ver projeto <span>→</span></a>
+              </div>
+            </article>
+
+            <article class="portfolio-item reveal">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Conteúdo estratégico e criação de materiais para comunicação digital" />
+              <div class="portfolio-content">
+                <div class="portfolio-tag">Conteúdo</div>
+                <h3>Estratégia de conteúdo</h3>
+                <a href="#" class="portfolio-link">Ver projeto <span>→</span></a>
+              </div>
+            </article>
+
+            <article class="portfolio-item reveal">
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80" alt="Planejamento de marketing digital com dados e estratégia comercial" />
+              <div class="portfolio-content">
+                <div class="portfolio-tag">Marketing Digital</div>
+                <h3>Estratégia comercial</h3>
+                <a href="#" class="portfolio-link">Ver projeto <span>→</span></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section about" id="sobre">
+        <div class="container about-wrap">
+          <div class="about-copy reveal">
+            <p class="eyebrow">Sobre</p>
+            <h2>Transformamos ideias em presença digital.</h2>
+            <p>
+              A Impulso Digital trabalha com estratégias de marketing, conteúdo, design e posicionamento para ajudar empresas a construir uma presença profissional no ambiente digital.
+            </p>
+          </div>
+
+          <div class="about-image-box reveal">
+            <img
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
+              alt="Equipe trabalhando em planejamento estratégico e marketing digital"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="processo">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Processo</p>
+            <h2>Como trabalhamos</h2>
+          </div>
+
+          <div class="process-grid">
+            <article class="process-step reveal">
+              <div class="process-number">01</div>
+              <h3>Entendemos</h3>
+              <p>Conhecemos sua empresa, seus objetivos e suas necessidades.</p>
+            </article>
+
+            <article class="process-step reveal">
+              <div class="process-number">02</div>
+              <h3>Planejamos</h3>
+              <p>Definimos uma estratégia de acordo com o objetivo do projeto.</p>
+            </article>
+
+            <article class="process-step reveal">
+              <div class="process-number">03</div>
+              <h3>Criamos</h3>
+              <p>Produzimos conteúdo, design e soluções digitais.</p>
+            </article>
+
+            <article class="process-step reveal">
+              <div class="process-number">04</div>
+              <h3>Desenvolvemos</h3>
+              <p>Colocamos o projeto em prática e acompanhamos sua evolução.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contato">
+        <div class="container contact-wrap">
+          <div class="contact-copy reveal">
+            <p class="eyebrow">Contato</p>
+            <h2>Vamos conversar sobre seu projeto?</h2>
+            <p>
+              Preencha seus dados e conte o que você precisa. Nossa equipe poderá entrar em contato para entender melhor sua necessidade.
+            </p>
+
+            <div class="socials">
+              <a href="#"><span class="social-pill">◎</span> Instagram</a>
+              <a href="#"><span class="social-pill">◌</span> TikTok</a>
+              <a href="#"><span class="social-pill">f</span> Facebook</a>
+              <a href="#"><span class="social-pill">✆</span> WhatsApp</a>
+              <a href="#"><span class="social-pill">@</span> E-mail</a>
+            </div>
+          </div>
+
+          <div class="contact-card reveal">
+            <form id="contactForm" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="nome">Nome completo</label>
+                  <input id="nome" name="nome" type="text" required />
+                </div>
+
+                <div class="field">
+                  <label for="email">E-mail</label>
+                  <input id="email" name="email" type="email" required />
+                </div>
+
+                <div class="field">
+                  <label for="telefone">Telefone</label>
+                  <input id="telefone" name="telefone" type="tel" required />
+                </div>
+
+                <div class="field">
+                  <label for="empresa">Empresa</label>
+                  <input id="empresa" name="empresa" type="text" required />
+                </div>
+
+                <div class="field full">
+                  <label for="desejo">O que você precisa?</label>
+                  <select id="desejo" name="desejo" required>
+                    <option value="">Selecione uma opção</option>
+                    <option>Marketing Digital</option>
+                    <option>Social Media</option>
+                    <option>Design Gráfico</option>
+                    <option>Identidade Visual</option>
+                    <option>Criação de Site</option>
+                    <option>Publicidade</option>
+                    <option>Outro</option>
+                  </select>
+                </div>
+
+                <div class="field full">
+                  <label for="mensagem">Mensagem</label>
+                  <textarea id="mensagem" name="mensagem" required></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Enviar cadastro</button>
+                <p id="successMessage" class="status-message" aria-live="polite">Cadastro enviado com sucesso! Entraremos em contato.</p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3>IMPULSO DIGITAL</h3>
+            <p>Marketing digital, design e estratégia para empresas que querem crescer.</p>
+          </div>
+
+          <nav class="footer-links" aria-label="Links de footer">
+            <a href="#inicio">Início</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#portfolio">Portfólio</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#contato">Contato</a>
+          </nav>
+
+          <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">TikTok</a>
+            <a href="#">Facebook</a>
+            <a href="#">WhatsApp</a>
+            <a href="#">E-mail</a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">© 2026 Impulso Digital. Todos os direitos reservados.</div>
+      </div>
+    </footer>
+
+    <script>
+      const menuToggle = document.querySelector('.menu-toggle');
+      const mainNav = document.querySelector('.main-nav');
+      const backToTopBtn = document.querySelector('.back-to-top');
+      const contactForm = document.getElementById('contactForm');
+      const successMessage = document.getElementById('successMessage');
+
+      function salvarCadastro() {
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const telefone = document.getElementById('telefone').value.trim();
+        const empresa = document.getElementById('empresa').value.trim();
+        const desejo = document.getElementById('desejo').value.trim();
+        const mensagem = document.getElementById('mensagem').value.trim();
+
+        const campos = [
+          { id: 'nome', value: nome },
+          { id: 'email', value: email },
+          { id: 'telefone', value: telefone },
+          { id: 'empresa', value: empresa },
+          { id: 'desejo', value: desejo },
+          { id: 'mensagem', value: mensagem }
+        ];
+
+        let valido = true;
+
+        campos.forEach(({ id, value }) => {
+          const field = document.getElementById(id);
+          if (!value) {
+            field.classList.add('error-field');
+            valido = false;
+          } else {
+            field.classList.remove('error-field');
+          }
+        });
+
+        if (!valido) {
+          successMessage.classList.remove('show');
+          return;
+        }
+
+        const storageKey = 'impulso_cadastros';
+        const existentes = JSON.parse(localStorage.getItem(storageKey) || '[]');
+
+        const agora = new Date();
+        const cadastro = {
+          id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+          nome: nome,
+          email: email,
+          telefone: telefone,
+          empresa: empresa,
+          desejo: desejo,
+          mensagem: mensagem,
+          data: agora.toLocaleDateString('pt-BR'),
+          horario: agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+          status: 'Novo'
+        };
+
+        existentes.push(cadastro);
+        localStorage.setItem(storageKey, JSON.stringify(existentes));
+
+        contactForm.reset();
+        successMessage.classList.add('show');
+      }
+
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = mainNav.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        mainNav.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          const targetId = link.getAttribute('href');
+          const target = document.querySelector(targetId);
+          if (target) {
+            event.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      const revealElements = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        revealElements.forEach((element) => observer.observe(element));
+      } else {
+        revealElements.forEach((element) => element.classList.add('visible'));
+      }
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 280) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      });
+
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        salvarCadastro();
+      });
+    </script>
+  </body>
+</html>
